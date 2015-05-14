@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="lt" lang="lt">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<title>Šauktinių sąrašo sudarymo kodo apžvalga</title>
+<link rel="stylesheet" href="style/style.css" type="text/css" />
+<link rel="stylesheet" href="style/code.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="sauktiniu-saraso-sudarymo-kodo-apzvalga">
+<h1 class="title">Šauktinių sąrašo sudarymo kodo apžvalga</h1>
+
+<div class="section" id="saltinis">
+<h1>Šaltinis</h1>
+<p>Krašto apsaugos ministerijos tinklalapyje yra skiltis <a class="reference external" href="http://2015.kam.lt/lt/aktuali_informacija_apie_privalomaja_karine_tarnyba.html">„Aktualu
+šauktiniams“</a>, kur yra štai tokia nuoroda:</p>
+<blockquote>
+Sąrašams sudaryti naudojamos PROGRAMOS KODĄ galima peržiūrėti
+<a class="reference external" href="http://2015.kam.lt/download/47896/kodas.zip">čia</a></blockquote>
+<p>Nuorodą „čia“ yra į ZIP archyvą „kodas.zip“, kurio SHA1 maišos kodas
+yra <tt class="docutils literal">45c1abe10591896ca9fe60738d15ad704a9753bd</tt>. Jeigu pašalintų
+failą arba pakeistų jį kitokiu, pateikiu <a class="reference external" href="kodas.zip">vietinę kopiją (mirror)</a>.</p>
+<p>Archyvas sukurtas gegužės 11-tą dieną, dvi dienos prieš sąrašo
+pateikimą, ir jame yra du failai:</p>
+<pre class="literal-block">
+Archive:  kodas.zip
+ Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
+--------  ------  ------- ---- ---------- ----- --------  ----
+    8957  Defl:N     1826  80% 2015-05-11 16:14 3f1d15de  Kodas/Forma Saukimo_sarasas.txt
+   13667  Defl:N     2294  83% 2015-05-11 16:14 30aefda2  Kodas/Package Saukimo_Sarasas.txt
+--------          -------  ---                            -------
+   22624             4120  82%                            2 files
+</pre>
+</div>
+<div class="section" id="turinys">
+<h1>Turinys</h1>
+<p>Failas „<a class="reference external" href="forma.html">Forma Saukimo_Sarasas.txt</a>“ (nuoroda į peržiūrą naršyklėje)
+yra UTF-8 koduotės Visual Basic.NET kalba parašyta vartotojo sąsaja.</p>
+<p>Failas „<a class="reference external" href="package.html">Package Saukimo_Sarasas.txt</a>“ yra ISO-8859-13 koduotės Oracle
+SQL programa. Anot komentarų abiejų failų autorius yra <em>ArtuCer</em>,
+paskutinio modifikavimo data 2015-05-07.</p>
+<p>Pagrindinė dalis yra dvi <tt class="docutils literal">INSERT</tt> užklausos. Anot komentarų, vienas
+jų generuoja „A sąrašą“, o kitas „regioninį A sąrašą“. Pastarojo
+procedūra dėl <em>aplinkybių</em> vadinasi Naujas_Sarasas_B.</p>
+<pre class="code sql literal-block">
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">PRS_A</span> <span class="p">(</span><span class="n">PersonalCode</span><span class="p">,</span> <span class="n">SarasoID</span><span class="p">,</span> <span class="n">EilesNr</span><span class="p">,</span> <span class="n">AtsitiktinisSkaicius</span><span class="p">,</span> <span class="n">RevOrgNo</span><span class="p">,</span> <span class="n">UserID</span><span class="p">,</span> <span class="n">RevisionDate</span><span class="p">)</span>
+  <span class="k">SELECT</span> <span class="n">PersonalCode</span><span class="p">,</span> <span class="n">in_SarasoID</span><span class="p">,</span> <span class="n">rownum</span> <span class="k">as</span> <span class="n">Eil_Nr</span><span class="p">,</span> <span class="n">atsitiktinis</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">User</span><span class="p">,</span> <span class="n">SysDate</span>
+  <span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">dbms_random</span><span class="p">.</span><span class="n">value</span> <span class="k">as</span> <span class="n">atsitiktinis</span><span class="p">,</span> <span class="n">PersonalCode</span>
+        <span class="k">FROM</span> <span class="n">PRV</span>
+        <span class="k">WHERE</span> <span class="n">PersonalCode</span> <span class="k">Not</span> <span class="k">In</span><span class="p">(</span><span class="k">SELECT</span> <span class="n">PersonalCode</span> <span class="k">FROM</span> <span class="n">PRA</span> <span class="k">WHERE</span> <span class="n">KKPAKodas</span> <span class="k">In</span><span class="p">(</span><span class="s1">'V'</span><span class="p">,</span><span class="s1">'Z'</span><span class="p">,</span><span class="s1">'X'</span><span class="p">))</span>
+        <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">)</span> <span class="n">a1</span><span class="p">;</span>
+</pre>
+<p>Čia sudaroma bendra eilė.  Vidiniame <tt class="docutils literal">SELECT</tt> kiekvienam kandidatui
+naudojant <a class="reference external" href="https://docs.oracle.com/cd/B19306_01/appdev.102/b14258/d_random.htm#CDEEECGA">dbms_random.value</a> priskiriamas atsitiktinis skaičius
+intervale [0,1), pagal kurį išrikiuojami rezultatai ir priskiriami
+numeriai bendroje eilėje.</p>
+<p>Pozicija eilėje priskiriama atsitiktinai, tačiau nevyksta joks
+atsiktinis išrinkimas, t.y. į eilę patenka visi kandidatai esantys
+<tt class="docutils literal">PRV</tt> lentelėje.</p>
+<pre class="code sql literal-block">
+<span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">PRS_B</span> <span class="p">(</span><span class="n">PersonalCode</span><span class="p">,</span> <span class="n">SarasoID</span><span class="p">,</span> <span class="n">EilesNr</span><span class="p">,</span> <span class="n">TeritOrgNo</span><span class="p">,</span> <span class="n">RevOrgNo</span><span class="p">,</span> <span class="n">UserID</span><span class="p">,</span> <span class="n">RevisionDate</span><span class="p">)</span>
+  <span class="k">SELECT</span> <span class="n">PersonalCode</span><span class="p">,</span> <span class="n">in_SarasoID</span><span class="o">||</span><span class="n">in_RegionoKodas</span><span class="p">,</span> <span class="n">rownum</span> <span class="k">as</span> <span class="n">Eil_Nr</span><span class="p">,</span> <span class="n">OfficeCode</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">User</span><span class="p">,</span> <span class="n">SysDate</span>
+  <span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">EilesNr</span><span class="p">,</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span><span class="p">,</span> <span class="n">DCH</span><span class="p">.</span><span class="n">OfficeCode</span>
+        <span class="k">FROM</span> <span class="n">PRS_A</span>
+          <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">PER</span> <span class="k">ON</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span><span class="o">=</span><span class="n">PER</span><span class="p">.</span><span class="n">PersonalCode</span>
+          <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">PRV</span> <span class="k">ON</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span><span class="o">=</span><span class="n">PRV</span><span class="p">.</span><span class="n">PersonalCode</span>
+          <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">DCH</span> <span class="k">ON</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span><span class="o">=</span><span class="n">DCH</span><span class="p">.</span><span class="n">PersonalCode</span>
+        <span class="k">WHERE</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">SarasoID</span><span class="o">=</span><span class="n">in_SarasoID</span>
+          <span class="c1">--iki einamųjų metų pradžios sukakęs 19 - 25 metų amžius
+</span>          <span class="k">AND</span> <span class="n">PER</span><span class="p">.</span><span class="n">BirthDate</span> <span class="k">BETWEEN</span> <span class="n">add_months</span><span class="p">(</span><span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span><span class="s1">'YEAR'</span><span class="p">),</span><span class="o">-</span><span class="mi">26</span><span class="o">*</span><span class="mi">12</span><span class="p">)</span> <span class="k">AND</span> <span class="n">add_months</span><span class="p">(</span><span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span><span class="s1">'YEAR'</span><span class="p">),</span><span class="o">-</span><span class="mi">19</span><span class="o">*</span><span class="mi">12</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+          <span class="c1">--neįtraukti kandidatų į NPPKT kurių priėmimo būsena &quot;Vykdomas priėmimas&quot;
+</span>          <span class="k">AND</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span> <span class="k">Not</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">PersonalCode</span>
+                                          <span class="k">FROM</span> <span class="n">TKT</span>
+                                          <span class="k">WHERE</span> <span class="n">TKT</span><span class="p">.</span><span class="n">KTKTKodas</span><span class="o">=</span><span class="s1">'S'</span>
+                                            <span class="k">AND</span> <span class="n">TKT</span><span class="p">.</span><span class="n">KTKBKodas</span><span class="o">=</span><span class="mi">0</span>
+                                            <span class="k">AND</span> <span class="n">RegistravimoData</span><span class="o">&lt;</span><span class="n">sysdate</span>
+                                            <span class="k">AND</span> <span class="n">nvl</span><span class="p">(</span><span class="n">PabaigosData</span><span class="p">,</span><span class="s1">'2100-12-31'</span><span class="p">)</span><span class="o">&gt;</span><span class="n">sysdate</span><span class="p">)</span>
+          <span class="k">AND</span> <span class="n">PRV</span><span class="p">.</span><span class="n">KKPTKodas</span><span class="o">=</span><span class="s1">'N'</span> <span class="c1">--neparengtojo rezervo karys
+</span>          <span class="k">AND</span> <span class="p">(</span><span class="n">DCH</span><span class="p">.</span><span class="n">OfficeCode</span><span class="o">=</span><span class="n">in_SkyriausOrgNo</span> <span class="k">OR</span> <span class="n">DCH</span><span class="p">.</span><span class="n">OfficeCode</span><span class="o">=</span><span class="n">in_PoskyrioOrgNo</span><span class="p">)</span>
+        <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">)</span> <span class="n">a1</span><span class="p">;</span>
+</pre>
+<p>Čia bendroji eilė išfiltruojama ir paskirstoma pagal regionus. Amžiaus
+filtravimo funkcija išrenka žmones, kurių gimimo data yra tarp
+1989-01-01 ir 1995-12-31 imtinai. Priskiriami regioniniai eilės
+numeriai.</p>
+<p>Turbūt tai ir yra eilė matoma šauktinių sąrašuose.</p>
+</div>
+<div class="section" id="isvados">
+<h1>Išvados</h1>
+<p>Tai nėra <a class="reference external" href="http://2015.kam.lt/images/thumbnail/?id=47893;w=1496;h=636;">tinklapyje minima</a> „atsitiktinė elektroninės atrankos
+sistema“. Nėra tos dalies, kuri išrenka 36 825 kandidatų iš visų
+galimų „apie 175 000“. Nera paaiškinimų apie kitas sistemos dalis, ir
+didžiąją publikacijos dalį sudaro šalutinis funkcionaluma.</p>
+<p>Kokios galėtų būti šio kodo publikavimo priežastys? Nevykęs bandymas
+sudaryti skaidrumo ir atvirumo įvaizdį?</p>
+</div>
+</div>
+</body>
+</html>

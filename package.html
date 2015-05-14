@@ -1,0 +1,758 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f8f8f8; }
+body .c { color: #408080; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #008000; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+body .cp { color: #BC7A00 } /* Comment.Preproc */
+body .c1 { color: #408080; font-style: italic } /* Comment.Single */
+body .cs { color: #408080; font-style: italic } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #008000 } /* Keyword.Pseudo */
+body .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #B00040 } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BA2121 } /* Literal.String */
+body .na { color: #7D9029 } /* Name.Attribute */
+body .nb { color: #008000 } /* Name.Builtin */
+body .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #0000FF } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #19177C } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sb { color: #BA2121 } /* Literal.String.Backtick */
+body .sc { color: #BA2121 } /* Literal.String.Char */
+body .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BA2121 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BA2121 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BA2121 } /* Literal.String.Single */
+body .ss { color: #19177C } /* Literal.String.Symbol */
+body .bp { color: #008000 } /* Name.Builtin.Pseudo */
+body .vc { color: #19177C } /* Name.Variable.Class */
+body .vg { color: #19177C } /* Name.Variable.Global */
+body .vi { color: #19177C } /* Name.Variable.Instance */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </style>
+</head>
+<body>
+<h2></h2>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="n">PACKAGE</span> <span class="n">SAUKIMO_SARASAS</span> <span class="k">AS</span> 
+<span class="c1">-- Autorius: ArtuCer</span>
+<span class="c1">-- Modifikavimo data: 2015-04-30</span>
+
+  <span class="c1">--Šaukimo sąrašų generavimo inicijavimas</span>
+  <span class="k">PROCEDURE</span> <span class="n">Nauju_Sarasu_Inicijavimas</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">);</span>
+
+  <span class="c1">--Generuojamas A sąrašas</span>
+  <span class="k">PROCEDURE</span> <span class="n">Naujas_Sarasas_A</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">);</span>
+
+  <span class="c1">--Generuojamas regioninis A sąrašas</span>
+  <span class="k">PROCEDURE</span> <span class="n">Naujas_Sarasas_B</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">,</span> <span class="n">in_RegionoKodas</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">,</span> <span class="n">in_SkyriausOrgNo</span> <span class="k">IN</span> <span class="nb">INTEGER</span><span class="p">,</span> <span class="n">in_PoskyrioOrgNo</span> <span class="k">IN</span> <span class="nb">INTEGER</span><span class="p">);</span>
+
+  <span class="c1">--Skaičiuojama sąrašo kontrolinė suma</span>
+  <span class="k">FUNCTION</span> <span class="n">Saraso_Kontroline_Suma</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">)</span> <span class="k">RETURN</span> <span class="n">VARCHAR2</span><span class="p">;</span>
+
+  <span class="c1">--Išsaugoma sąrašo kontrolinė suma</span>
+  <span class="k">PROCEDURE</span> <span class="n">Issaugoma_Kontroline_Suma</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">);</span>
+
+  <span class="c1">--Šaukimo sąrašų generavimo užbaigimas</span>
+  <span class="k">PROCEDURE</span> <span class="n">Nauju_Sarasu_Uzbaigimas</span><span class="p">;</span>
+
+  <span class="c1">--Šaukimo sąrašų generavimas nuo A iki Z</span>
+  <span class="k">PROCEDURE</span> <span class="n">Sarasu_Generavimas_Nuo_A_Iki_Z</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">);</span>
+
+<span class="k">END</span> <span class="n">SAUKIMO_SARASAS</span><span class="p">;</span>
+<span class="o">/</span>
+
+
+<span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="n">PACKAGE</span> <span class="n">BODY</span> <span class="n">SAUKIMO_SARASAS</span> <span class="k">AS</span>
+<span class="c1">-- Autorius: ArtuCer</span>
+<span class="c1">-- Modifikavimo data: 2015-05-07</span>
+
+  <span class="c1">--Šaukimo sąrašų generavimo inicijavimas</span>
+  <span class="k">PROCEDURE</span> <span class="n">Nauju_Sarasu_Inicijavimas</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">)</span> <span class="k">AS</span>
+    <span class="n">v_data</span> <span class="nb">DATE</span><span class="p">;</span>
+    <span class="n">v_filehandle</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FILE_TYPE</span><span class="p">;</span>
+  <span class="k">BEGIN</span>
+    <span class="c1">--Atidaromas log failas</span>
+    <span class="n">v_filehandle</span> <span class="p">:</span><span class="o">=</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FOPEN</span> <span class="p">(</span><span class="s1">&#39;ORACLE_LOG_DIR&#39;</span><span class="p">,</span> <span class="s1">&#39;PerVIS_Saukimo_sarasu_generavimas.log&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">);</span>
+
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Šaukimo sąrašų generavimas pradėtas: %s\n\n&#39;</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span><span class="s1">&#39;YYYY-MM-DD HH24:MI:SS&#39;</span><span class="p">));</span>
+  
+    <span class="n">v_data</span><span class="p">:</span><span class="o">=</span><span class="n">sysdate</span><span class="p">;</span>
+    <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">PRSK</span> <span class="p">(</span><span class="n">SarasoID</span><span class="p">,</span> <span class="n">SarasoData</span><span class="p">,</span> <span class="n">TeritOrgNo</span><span class="p">,</span> <span class="n">KontrolineSuma</span><span class="p">,</span> <span class="n">ObjektuSkaicius</span><span class="p">,</span> <span class="n">RevOrgNo</span><span class="p">,</span> <span class="n">UserID</span><span class="p">,</span> <span class="n">RevisionDate</span><span class="p">)</span>
+      <span class="k">SELECT</span> <span class="n">in_SarasoID</span><span class="p">,</span> <span class="n">trunc</span><span class="p">(</span><span class="n">SysDate</span><span class="p">),</span> <span class="k">Null</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">User</span><span class="p">,</span> <span class="n">SysDate</span>
+      <span class="k">FROM</span> <span class="n">dual</span>
+      <span class="k">UNION</span>
+      <span class="k">SELECT</span> <span class="n">in_SarasoID</span><span class="o">||</span><span class="n">RegionoKodas</span><span class="p">,</span> <span class="n">trunc</span><span class="p">(</span><span class="n">SysDate</span><span class="p">),</span> <span class="n">SkyriausOrgNo</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">User</span><span class="p">,</span> <span class="n">SysDate</span>
+      <span class="k">FROM</span> <span class="n">kdch_reg</span><span class="p">;</span>
+  
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;     - sąrašų kontrolinių įrašų kiekis: %s     %s\n&#39;</span><span class="p">,</span> <span class="k">SQL</span><span class="o">%</span><span class="n">ROWCOUNT</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">TO_DATE</span><span class="p">(</span><span class="s1">&#39;00:00:00&#39;</span><span class="p">,</span><span class="s1">&#39;HH24:MI:SS&#39;</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">SYSDATE</span><span class="o">-</span><span class="n">v_data</span><span class="p">),</span><span class="s1">&#39;HH24:MI:SS&#39;</span><span class="p">));</span>
+  
+    <span class="k">COMMIT</span><span class="p">;</span>
+
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+
+  <span class="k">EXCEPTION</span>
+  
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_PATH</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20001</span><span class="p">,</span> <span class="s1">&#39;Blogas log failo kelias.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_FILEHANDLE</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20002</span><span class="p">,</span> <span class="s1">&#39;Blogas log failas.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">WRITE_ERROR</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20003</span><span class="p">,</span> <span class="s1">&#39;Negalima įrašyti į log failą.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">OTHERS</span> <span class="k">THEN</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Klaida: %s\n&#39;</span><span class="p">,</span> <span class="n">SQLERRM</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Šaukimo sąrašų generavimo inicijavimas nutrauktas: %s\n\n&#39;</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span><span class="s1">&#39;YYYY-MM-DD HH24:MI:SS&#39;</span><span class="p">));</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUT_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;------------------------------------------------------------------&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">NEW_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+  <span class="k">END</span> <span class="n">Nauju_Sarasu_Inicijavimas</span><span class="p">;</span>
+
+
+  <span class="c1">--Generuojamas A sąrašas</span>
+  <span class="k">PROCEDURE</span> <span class="n">Naujas_Sarasas_A</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">)</span> <span class="k">AS</span>
+    <span class="n">v_data</span> <span class="nb">DATE</span><span class="p">;</span>
+    <span class="n">v_filehandle</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FILE_TYPE</span><span class="p">;</span>
+  <span class="k">BEGIN</span>
+    <span class="c1">--Atidaromas log failas</span>
+    <span class="n">v_filehandle</span> <span class="p">:</span><span class="o">=</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FOPEN</span> <span class="p">(</span><span class="s1">&#39;ORACLE_LOG_DIR&#39;</span><span class="p">,</span> <span class="s1">&#39;PerVIS_Saukimo_sarasu_generavimas.log&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">);</span>
+
+    <span class="n">v_data</span><span class="p">:</span><span class="o">=</span><span class="n">sysdate</span><span class="p">;</span>
+    <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">PRS_A</span> <span class="p">(</span><span class="n">PersonalCode</span><span class="p">,</span> <span class="n">SarasoID</span><span class="p">,</span> <span class="n">EilesNr</span><span class="p">,</span> <span class="n">AtsitiktinisSkaicius</span><span class="p">,</span> <span class="n">RevOrgNo</span><span class="p">,</span> <span class="n">UserID</span><span class="p">,</span> <span class="n">RevisionDate</span><span class="p">)</span>
+      <span class="k">SELECT</span> <span class="n">PersonalCode</span><span class="p">,</span> <span class="n">in_SarasoID</span><span class="p">,</span> <span class="n">rownum</span> <span class="k">as</span> <span class="n">Eil_Nr</span><span class="p">,</span> <span class="n">atsitiktinis</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">User</span><span class="p">,</span> <span class="n">SysDate</span>
+      <span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">dbms_random</span><span class="p">.</span><span class="n">value</span> <span class="k">as</span> <span class="n">atsitiktinis</span><span class="p">,</span> <span class="n">PersonalCode</span>
+            <span class="k">FROM</span> <span class="n">PRV</span>
+            <span class="k">WHERE</span> <span class="n">PersonalCode</span> <span class="k">Not</span> <span class="k">In</span><span class="p">(</span><span class="k">SELECT</span> <span class="n">PersonalCode</span> <span class="k">FROM</span> <span class="n">PRA</span> <span class="k">WHERE</span> <span class="n">KKPAKodas</span> <span class="k">In</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">,</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">))</span>
+            <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">)</span> <span class="n">a1</span><span class="p">;</span>
+   
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;     - %s sąrašo įrašų kiekis: %s     %s\n&#39;</span><span class="p">,</span> <span class="n">in_SarasoID</span><span class="p">,</span> <span class="k">SQL</span><span class="o">%</span><span class="n">ROWCOUNT</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">TO_DATE</span><span class="p">(</span><span class="s1">&#39;00:00:00&#39;</span><span class="p">,</span><span class="s1">&#39;HH24:MI:SS&#39;</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">SYSDATE</span><span class="o">-</span><span class="n">v_data</span><span class="p">),</span><span class="s1">&#39;HH24:MI:SS&#39;</span><span class="p">));</span>
+
+    <span class="k">COMMIT</span><span class="p">;</span>
+
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+
+  <span class="k">EXCEPTION</span>
+    
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_PATH</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20001</span><span class="p">,</span> <span class="s1">&#39;Blogas log failo kelias.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_FILEHANDLE</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20002</span><span class="p">,</span> <span class="s1">&#39;Blogas log failas.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">WRITE_ERROR</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20003</span><span class="p">,</span> <span class="s1">&#39;Negalima įrašyti į log failą.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">OTHERS</span> <span class="k">THEN</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Klaida: %s\n&#39;</span><span class="p">,</span> <span class="n">SQLERRM</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Axx sąrašo generavimas nutrauktas: %s\n\n&#39;</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span><span class="s1">&#39;YYYY-MM-DD HH24:MI:SS&#39;</span><span class="p">));</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUT_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;------------------------------------------------------------------&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">NEW_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+  <span class="k">END</span> <span class="n">Naujas_Sarasas_A</span><span class="p">;</span>
+
+
+  <span class="c1">--Generuojamas regioninis A sąrašas</span>
+  <span class="k">PROCEDURE</span> <span class="n">Naujas_Sarasas_B</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">,</span> <span class="n">in_RegionoKodas</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">,</span> <span class="n">in_SkyriausOrgNo</span> <span class="k">IN</span> <span class="nb">INTEGER</span><span class="p">,</span> <span class="n">in_PoskyrioOrgNo</span> <span class="k">IN</span> <span class="nb">INTEGER</span><span class="p">)</span> <span class="k">AS</span>
+    <span class="n">v_data</span> <span class="nb">DATE</span><span class="p">;</span>
+    <span class="n">v_filehandle</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FILE_TYPE</span><span class="p">;</span>
+  <span class="k">BEGIN</span>
+    <span class="c1">--Atidaromas log failas</span>
+    <span class="n">v_filehandle</span> <span class="p">:</span><span class="o">=</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FOPEN</span> <span class="p">(</span><span class="s1">&#39;ORACLE_LOG_DIR&#39;</span><span class="p">,</span> <span class="s1">&#39;PerVIS_Saukimo_sarasu_generavimas.log&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">);</span>
+
+    <span class="n">v_data</span><span class="p">:</span><span class="o">=</span><span class="n">sysdate</span><span class="p">;</span>
+    <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">PRS_B</span> <span class="p">(</span><span class="n">PersonalCode</span><span class="p">,</span> <span class="n">SarasoID</span><span class="p">,</span> <span class="n">EilesNr</span><span class="p">,</span> <span class="n">TeritOrgNo</span><span class="p">,</span> <span class="n">RevOrgNo</span><span class="p">,</span> <span class="n">UserID</span><span class="p">,</span> <span class="n">RevisionDate</span><span class="p">)</span>
+      <span class="k">SELECT</span> <span class="n">PersonalCode</span><span class="p">,</span> <span class="n">in_SarasoID</span><span class="o">||</span><span class="n">in_RegionoKodas</span><span class="p">,</span> <span class="n">rownum</span> <span class="k">as</span> <span class="n">Eil_Nr</span><span class="p">,</span> <span class="n">OfficeCode</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">User</span><span class="p">,</span> <span class="n">SysDate</span>
+      <span class="k">FROM</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">EilesNr</span><span class="p">,</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span><span class="p">,</span> <span class="n">DCH</span><span class="p">.</span><span class="n">OfficeCode</span>
+            <span class="k">FROM</span> <span class="n">PRS_A</span>
+              <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">PER</span> <span class="k">ON</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span><span class="o">=</span><span class="n">PER</span><span class="p">.</span><span class="n">PersonalCode</span>
+              <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">PRV</span> <span class="k">ON</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span><span class="o">=</span><span class="n">PRV</span><span class="p">.</span><span class="n">PersonalCode</span>
+              <span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">DCH</span> <span class="k">ON</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span><span class="o">=</span><span class="n">DCH</span><span class="p">.</span><span class="n">PersonalCode</span>
+            <span class="k">WHERE</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">SarasoID</span><span class="o">=</span><span class="n">in_SarasoID</span>
+              <span class="c1">--iki einamųjų metų pradžios sukakęs 19 - 25 metų amžius</span>
+              <span class="k">AND</span> <span class="n">PER</span><span class="p">.</span><span class="n">BirthDate</span> <span class="k">BETWEEN</span> <span class="n">add_months</span><span class="p">(</span><span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span><span class="s1">&#39;YEAR&#39;</span><span class="p">),</span><span class="o">-</span><span class="mi">26</span><span class="o">*</span><span class="mi">12</span><span class="p">)</span> <span class="k">AND</span> <span class="n">add_months</span><span class="p">(</span><span class="n">trunc</span><span class="p">(</span><span class="n">sysdate</span><span class="p">,</span><span class="s1">&#39;YEAR&#39;</span><span class="p">),</span><span class="o">-</span><span class="mi">19</span><span class="o">*</span><span class="mi">12</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+              <span class="c1">--neįtraukti kandidatų į NPPKT kurių priėmimo būsena &quot;Vykdomas priėmimas&quot;</span>
+              <span class="k">AND</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span> <span class="k">Not</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">PersonalCode</span> 
+                                              <span class="k">FROM</span> <span class="n">TKT</span>
+                                              <span class="k">WHERE</span> <span class="n">TKT</span><span class="p">.</span><span class="n">KTKTKodas</span><span class="o">=</span><span class="s1">&#39;S&#39;</span> 
+                                                <span class="k">AND</span> <span class="n">TKT</span><span class="p">.</span><span class="n">KTKBKodas</span><span class="o">=</span><span class="mi">0</span>
+                                                <span class="k">AND</span> <span class="n">RegistravimoData</span><span class="o">&lt;</span><span class="n">sysdate</span>
+                                                <span class="k">AND</span> <span class="n">nvl</span><span class="p">(</span><span class="n">PabaigosData</span><span class="p">,</span><span class="s1">&#39;2100-12-31&#39;</span><span class="p">)</span><span class="o">&gt;</span><span class="n">sysdate</span><span class="p">)</span>
+              <span class="k">AND</span> <span class="n">PRV</span><span class="p">.</span><span class="n">KKPTKodas</span><span class="o">=</span><span class="s1">&#39;N&#39;</span> <span class="c1">--neparengtojo rezervo karys</span>
+              <span class="k">AND</span> <span class="p">(</span><span class="n">DCH</span><span class="p">.</span><span class="n">OfficeCode</span><span class="o">=</span><span class="n">in_SkyriausOrgNo</span> <span class="k">OR</span> <span class="n">DCH</span><span class="p">.</span><span class="n">OfficeCode</span><span class="o">=</span><span class="n">in_PoskyrioOrgNo</span><span class="p">)</span>
+            <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">)</span> <span class="n">a1</span><span class="p">;</span>
+
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;     - %s%s sąrašo įrašų kiekis: %s     %s\n&#39;</span><span class="p">,</span> <span class="n">in_SarasoID</span><span class="p">,</span> <span class="n">in_RegionoKodas</span><span class="p">,</span> <span class="k">SQL</span><span class="o">%</span><span class="n">ROWCOUNT</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">TO_DATE</span><span class="p">(</span><span class="s1">&#39;00:00:00&#39;</span><span class="p">,</span><span class="s1">&#39;HH24:MI:SS&#39;</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">SYSDATE</span><span class="o">-</span><span class="n">v_data</span><span class="p">),</span><span class="s1">&#39;HH24:MI:SS&#39;</span><span class="p">));</span>
+  
+    <span class="k">COMMIT</span><span class="p">;</span>
+    
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+
+  <span class="k">EXCEPTION</span>
+  
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_PATH</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20001</span><span class="p">,</span> <span class="s1">&#39;Blogas log failo kelias.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_FILEHANDLE</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20002</span><span class="p">,</span> <span class="s1">&#39;Blogas log failas.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">WRITE_ERROR</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20003</span><span class="p">,</span> <span class="s1">&#39;Negalima įrašyti į log failą.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">OTHERS</span> <span class="k">THEN</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Klaida: %s\n&#39;</span><span class="p">,</span> <span class="n">SQLERRM</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Axxyy sarašo generavimas nutrauktas: %s\n\n&#39;</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span><span class="s1">&#39;YYYY-MM-DD HH24:MI:SS&#39;</span><span class="p">));</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUT_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;------------------------------------------------------------------&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">NEW_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+  <span class="k">END</span> <span class="n">Naujas_Sarasas_B</span><span class="p">;</span>
+
+
+  <span class="c1">--Skaičiuojama sarašo kontrolinė suma</span>
+  <span class="k">FUNCTION</span> <span class="n">Saraso_Kontroline_Suma</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">)</span> <span class="k">RETURN</span> <span class="n">VARCHAR2</span> <span class="k">AS</span>
+    <span class="n">v_Kontroline_Suma</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+  <span class="k">BEGIN</span>
+    <span class="n">IF</span> <span class="k">LENGTH</span><span class="p">(</span><span class="n">in_SarasoID</span><span class="p">)</span><span class="o">=</span><span class="mi">3</span> <span class="k">THEN</span>
+      <span class="k">FOR</span> <span class="n">ks_rec</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">to_char</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">owa_opt_lock</span><span class="p">.</span><span class="n">checksum</span><span class="p">(</span><span class="n">PRS_A</span><span class="p">.</span><span class="n">PersonalCode</span><span class="o">||</span><span class="n">PRS_A</span><span class="p">.</span><span class="n">SarasoID</span><span class="o">||</span><span class="n">PRS_A</span><span class="p">.</span><span class="n">EilesNr</span><span class="o">||</span><span class="n">PRS_A</span><span class="p">.</span><span class="n">AtsitiktinisSkaicius</span><span class="p">)))</span> <span class="n">CHECKSUM</span>
+                      <span class="k">FROM</span> <span class="n">prs_A</span> 
+                      <span class="k">WHERE</span> <span class="n">PRS_A</span><span class="p">.</span><span class="n">SarasoID</span><span class="o">=</span><span class="n">in_SarasoID</span><span class="p">)</span>
+      <span class="n">LOOP</span>
+        <span class="n">v_Kontroline_Suma</span><span class="p">:</span><span class="o">=</span><span class="n">nvl</span><span class="p">(</span><span class="n">ks_rec</span><span class="p">.</span><span class="n">CHECKSUM</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+        
+        <span class="n">EXIT</span><span class="p">;</span>
+      <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+    <span class="k">ELSE</span>
+      <span class="k">FOR</span> <span class="n">ks_rec</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">to_char</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">owa_opt_lock</span><span class="p">.</span><span class="n">checksum</span><span class="p">(</span><span class="n">PRS_B</span><span class="p">.</span><span class="n">PersonalCode</span><span class="o">||</span><span class="n">PRS_B</span><span class="p">.</span><span class="n">SarasoID</span><span class="o">||</span><span class="n">PRS_B</span><span class="p">.</span><span class="n">EilesNr</span><span class="o">||</span><span class="n">PRS_B</span><span class="p">.</span><span class="n">TeritOrgNo</span><span class="p">)))</span> <span class="n">CHECKSUM</span>
+                      <span class="k">FROM</span> <span class="n">prs_B</span> 
+                      <span class="k">WHERE</span> <span class="n">PRS_B</span><span class="p">.</span><span class="n">SarasoID</span><span class="o">=</span><span class="n">in_SarasoID</span><span class="p">)</span>
+      <span class="n">LOOP</span>
+        <span class="n">v_Kontroline_Suma</span><span class="p">:</span><span class="o">=</span><span class="n">nvl</span><span class="p">(</span><span class="n">ks_rec</span><span class="p">.</span><span class="n">CHECKSUM</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+        
+        <span class="n">EXIT</span><span class="p">;</span>
+      <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+
+    <span class="k">RETURN</span> <span class="n">v_Kontroline_Suma</span><span class="p">;</span>
+
+  <span class="k">END</span> <span class="n">Saraso_Kontroline_Suma</span><span class="p">;</span>
+
+
+  <span class="c1">--Išsaugoma sarašo kontrolinė suma</span>
+  <span class="k">PROCEDURE</span> <span class="n">Issaugoma_Kontroline_Suma</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">)</span> <span class="k">AS</span>
+    <span class="n">v_Kontroline_Suma</span> <span class="n">VARCHAR2</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+    <span class="n">v_data</span> <span class="nb">DATE</span><span class="p">;</span>
+    <span class="n">v_filehandle</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FILE_TYPE</span><span class="p">;</span>
+  <span class="k">BEGIN</span>
+    <span class="c1">--Atidaromas log failas</span>
+    <span class="n">v_filehandle</span> <span class="p">:</span><span class="o">=</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FOPEN</span> <span class="p">(</span><span class="s1">&#39;ORACLE_LOG_DIR&#39;</span><span class="p">,</span> <span class="s1">&#39;PerVIS_Saukimo_sarasu_generavimas.log&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">);</span>
+
+    <span class="n">v_data</span><span class="p">:</span><span class="o">=</span><span class="n">sysdate</span><span class="p">;</span>
+    <span class="n">v_Kontroline_Suma</span><span class="p">:</span><span class="o">=</span><span class="n">SAUKIMO_SARASAS</span><span class="p">.</span><span class="n">Saraso_Kontroline_Suma</span><span class="p">(</span><span class="n">in_SarasoID</span><span class="p">);</span>
+    <span class="n">IF</span> <span class="k">LENGTH</span><span class="p">(</span><span class="n">in_SarasoID</span><span class="p">)</span><span class="o">=</span><span class="mi">3</span> <span class="k">THEN</span>
+      <span class="k">UPDATE</span> <span class="n">PRSK</span> <span class="k">SET</span>
+          <span class="n">KontrolineSuma</span><span class="o">=</span><span class="n">v_Kontroline_Suma</span><span class="p">,</span>
+          <span class="n">ObjektuSkaicius</span><span class="o">=</span><span class="p">(</span><span class="k">SELECT</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+              <span class="k">FROM</span> <span class="n">prs_A</span> 
+              <span class="k">WHERE</span> <span class="n">PRSK</span><span class="p">.</span><span class="n">SarasoID</span><span class="o">=</span><span class="n">PRS_A</span><span class="p">.</span><span class="n">SarasoID</span><span class="p">),</span>
+          <span class="n">RevOrgNo</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+          <span class="n">UserID</span><span class="o">=</span><span class="k">User</span><span class="p">,</span>
+          <span class="n">RevisionDate</span><span class="o">=</span><span class="n">sysdate</span>
+        <span class="k">WHERE</span> <span class="n">SarasoID</span><span class="o">=</span><span class="n">in_SarasoID</span><span class="p">;</span>
+    <span class="k">ELSE</span>
+      <span class="k">UPDATE</span> <span class="n">PRSK</span> <span class="k">SET</span>
+          <span class="n">KontrolineSuma</span><span class="o">=</span><span class="n">v_Kontroline_Suma</span><span class="p">,</span>
+          <span class="n">ObjektuSkaicius</span><span class="o">=</span><span class="p">(</span><span class="k">SELECT</span> <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+              <span class="k">FROM</span> <span class="n">prs_B</span> 
+              <span class="k">WHERE</span> <span class="n">PRSK</span><span class="p">.</span><span class="n">SarasoID</span><span class="o">=</span><span class="n">PRS_B</span><span class="p">.</span><span class="n">SarasoID</span><span class="p">),</span>
+          <span class="n">RevOrgNo</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+          <span class="n">UserID</span><span class="o">=</span><span class="k">User</span><span class="p">,</span>
+          <span class="n">RevisionDate</span><span class="o">=</span><span class="n">sysdate</span>
+        <span class="k">WHERE</span> <span class="n">SarasoID</span><span class="o">=</span><span class="n">in_SarasoID</span><span class="p">;</span>
+    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
+
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;     - %s sąrašo konrolinė suma: %s      %s\n&#39;</span><span class="p">,</span> <span class="n">in_SarasoID</span><span class="p">,</span> <span class="n">v_Kontroline_Suma</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">TO_DATE</span><span class="p">(</span><span class="s1">&#39;00:00:00&#39;</span><span class="p">,</span><span class="s1">&#39;HH24:MI:SS&#39;</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">SYSDATE</span><span class="o">-</span><span class="n">v_data</span><span class="p">),</span><span class="s1">&#39;HH24:MI:SS&#39;</span><span class="p">));</span>
+  
+    <span class="k">COMMIT</span><span class="p">;</span>
+
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+
+  <span class="k">EXCEPTION</span>
+  
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_PATH</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20001</span><span class="p">,</span> <span class="s1">&#39;Blogas log failo kelias.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_FILEHANDLE</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20002</span><span class="p">,</span> <span class="s1">&#39;Blogas log failas.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">WRITE_ERROR</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20003</span><span class="p">,</span> <span class="s1">&#39;Negalima įrašyti į log failą.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">OTHERS</span> <span class="k">THEN</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Klaida: %s\n&#39;</span><span class="p">,</span> <span class="n">SQLERRM</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Kontrolinių sumų išsaugojimas nutrauktas: %s\n\n&#39;</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span><span class="s1">&#39;YYYY-MM-DD HH24:MI:SS&#39;</span><span class="p">));</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUT_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;------------------------------------------------------------------&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">NEW_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+  <span class="k">END</span> <span class="n">Issaugoma_Kontroline_Suma</span><span class="p">;</span>
+
+
+  <span class="c1">--Šaukimo sąrašų generavimo užbaigimas</span>
+  <span class="k">PROCEDURE</span> <span class="n">Nauju_Sarasu_Uzbaigimas</span> <span class="k">AS</span>
+    <span class="n">v_filehandle</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FILE_TYPE</span><span class="p">;</span>
+  <span class="k">BEGIN</span>
+    <span class="c1">--Atidaromas log failas</span>
+    <span class="n">v_filehandle</span> <span class="p">:</span><span class="o">=</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FOPEN</span> <span class="p">(</span><span class="s1">&#39;ORACLE_LOG_DIR&#39;</span><span class="p">,</span> <span class="s1">&#39;PerVIS_Saukimo_sarasu_generavimas.log&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">);</span>
+    
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">NEW_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Šaukimo sąrašų generavimas baigtas: %s\n\n&#39;</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span><span class="s1">&#39;YYYY-MM-DD HH24:MI:SS&#39;</span><span class="p">));</span>
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUT_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;------------------------------------------------------------------&#39;</span><span class="p">);</span>
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">NEW_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+
+    <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+
+  <span class="k">EXCEPTION</span>
+  
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_PATH</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20001</span><span class="p">,</span> <span class="s1">&#39;Blogas log failo kelias.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">INVALID_FILEHANDLE</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20002</span><span class="p">,</span> <span class="s1">&#39;Blogas log failas.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">WRITE_ERROR</span> <span class="k">THEN</span>
+      <span class="n">RAISE_APPLICATION_ERROR</span> <span class="p">(</span><span class="o">-</span><span class="mi">20003</span><span class="p">,</span> <span class="s1">&#39;Negalima įrašyti į log failą.&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+    <span class="k">WHEN</span> <span class="n">OTHERS</span> <span class="k">THEN</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Klaida: %s\n&#39;</span><span class="p">,</span> <span class="n">SQLERRM</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUTF</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;Šaukimo sarašų generavimas nutrauktas: %s\n\n&#39;</span><span class="p">,</span> <span class="n">TO_CHAR</span><span class="p">(</span><span class="n">SYSDATE</span><span class="p">,</span><span class="s1">&#39;YYYY-MM-DD HH24:MI:SS&#39;</span><span class="p">));</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">PUT_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">,</span> <span class="s1">&#39;------------------------------------------------------------------&#39;</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">NEW_LINE</span> <span class="p">(</span><span class="n">v_filehandle</span><span class="p">);</span>
+      <span class="n">UTL_FILE</span><span class="p">.</span><span class="n">FCLOSE_ALL</span><span class="p">;</span>
+  <span class="k">END</span> <span class="n">Nauju_Sarasu_Uzbaigimas</span><span class="p">;</span>
+
+
+  <span class="c1">--Šaukimo sąrašų generavimas nuo A iki Z</span>
+  <span class="k">PROCEDURE</span> <span class="n">Sarasu_Generavimas_Nuo_A_Iki_Z</span> <span class="p">(</span><span class="n">in_SarasoID</span> <span class="k">IN</span> <span class="n">VARCHAR2</span><span class="p">)</span> <span class="k">AS</span>
+    <span class="n">v_SarasoID</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">v_return</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>
+    
+  <span class="k">BEGIN</span>
+    
+    <span class="c1">--Šaukimo sąrašų generavimo inicijavimas</span>
+    <span class="n">SAUKIMO_SARASAS</span><span class="p">.</span><span class="n">Nauju_Sarasu_Inicijavimas</span><span class="p">(</span><span class="n">in_SarasoID</span><span class="p">);</span>    
+    
+    
+    <span class="c1">--Generuojamas A sąrašas</span>
+    <span class="n">SAUKIMO_SARASAS</span><span class="p">.</span><span class="n">Naujas_Sarasas_A</span><span class="p">(</span><span class="n">in_SarasoID</span><span class="p">);</span>    
+    
+    
+    <span class="c1">--Generuojamas regioninis A sąrašas</span>
+    <span class="k">FOR</span> <span class="n">B_sarasas_rec</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">RegionoKodas</span><span class="p">,</span> <span class="n">SkyriausOrgNo</span><span class="p">,</span> <span class="n">PoskyrioOrgNo</span>
+      <span class="k">FROM</span> <span class="n">kdch_reg</span>
+      <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">LOOP</span>
+      <span class="n">SAUKIMO_SARASAS</span><span class="p">.</span><span class="n">Naujas_Sarasas_B</span><span class="p">(</span><span class="n">in_SarasoID</span><span class="p">,</span> <span class="n">B_sarasas_rec</span><span class="p">.</span><span class="n">RegionoKodas</span><span class="p">,</span> <span class="n">B_sarasas_rec</span><span class="p">.</span><span class="n">SkyriausOrgNo</span><span class="p">,</span> <span class="n">B_sarasas_rec</span><span class="p">.</span><span class="n">PoskyrioOrgNo</span><span class="p">);</span>    
+    <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+    
+    
+    <span class="c1">--Išsaugoma sąrašo kontrolinė suma</span>
+    <span class="k">FOR</span> <span class="n">sarasoID_rec</span> <span class="k">IN</span> <span class="p">(</span><span class="k">SELECT</span> <span class="n">SarasoID</span>
+                        <span class="k">FROM</span> <span class="n">PRSK</span>  
+                        <span class="k">WHERE</span> <span class="n">SarasoID</span> <span class="k">Like</span> <span class="n">in_SarasoID</span><span class="o">||</span><span class="s1">&#39;%&#39;</span>
+                        <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">SarasoID</span><span class="p">)</span>
+    <span class="n">LOOP</span>
+      <span class="n">SAUKIMO_SARASAS</span><span class="p">.</span><span class="n">Issaugoma_Kontroline_Suma</span><span class="p">(</span><span class="n">sarasoID_rec</span><span class="p">.</span><span class="n">SarasoID</span><span class="p">);</span>    
+    <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
+    
+    
+    <span class="c1">--Šaukimo sąrašų generavimo užbaigimas</span>
+    <span class="n">SAUKIMO_SARASAS</span><span class="p">.</span><span class="n">Nauju_Sarasu_Uzbaigimas</span><span class="p">;</span>
+    
+  <span class="k">END</span> <span class="n">Sarasu_Generavimas_Nuo_A_Iki_Z</span><span class="p">;</span>
+
+<span class="k">END</span> <span class="n">SAUKIMO_SARASAS</span><span class="p">;</span>
+<span class="o">/</span>
+</pre></div>
+</td></tr></table></body>
+</html>

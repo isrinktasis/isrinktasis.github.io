@@ -1,0 +1,16 @@
+* {
+    line-height: 150%;
+}
+
+p {
+    max-width: 50em;
+}
+
+blockquote {
+    font-style: italic;
+}
+
+.code, .literal-block {
+    padding: 1em;
+    background-color: #F8F8F8;
+}

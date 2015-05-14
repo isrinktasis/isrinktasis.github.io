@@ -1,0 +1,588 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f8f8f8; }
+body .c { color: #408080; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #008000; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+body .cp { color: #BC7A00 } /* Comment.Preproc */
+body .c1 { color: #408080; font-style: italic } /* Comment.Single */
+body .cs { color: #408080; font-style: italic } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #008000 } /* Keyword.Pseudo */
+body .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #B00040 } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BA2121 } /* Literal.String */
+body .na { color: #7D9029 } /* Name.Attribute */
+body .nb { color: #008000 } /* Name.Builtin */
+body .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #0000FF } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #19177C } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sb { color: #BA2121 } /* Literal.String.Backtick */
+body .sc { color: #BA2121 } /* Literal.String.Char */
+body .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BA2121 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BA2121 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BA2121 } /* Literal.String.Single */
+body .ss { color: #19177C } /* Literal.String.Symbol */
+body .bp { color: #008000 } /* Name.Builtin.Pseudo */
+body .vc { color: #19177C } /* Name.Variable.Class */
+body .vg { color: #19177C } /* Name.Variable.Global */
+body .vi { color: #19177C } /* Name.Variable.Instance */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </style>
+</head>
+<body>
+<h2></h2>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">Option</span> <span class="n">Compare</span> <span class="n">Database</span>
+<span class="k">Option</span> <span class="n">Explicit</span>
+
+<span class="k">Private</span> <span class="k">Sub</span> <span class="nf">pbNaujas_Sarasas_Click</span><span class="p">()</span>
+<span class="k">On</span> <span class="k">Error</span> <span class="k">GoTo</span> <span class="n">HandleErr</span>
+    <span class="k">Dim</span> <span class="n">qDef1</span> <span class="ow">As</span> <span class="n">QueryDef</span>
+    <span class="k">Dim</span> <span class="n">qDef2</span> <span class="ow">As</span> <span class="n">QueryDef</span>
+    <span class="k">Dim</span> <span class="n">rst1</span> <span class="ow">As</span> <span class="n">DAO</span><span class="p">.</span><span class="n">Recordset</span>
+    <span class="k">Dim</span> <span class="n">rst2</span> <span class="ow">As</span> <span class="n">DAO</span><span class="p">.</span><span class="n">Recordset</span>
+    <span class="k">Dim</span> <span class="n">txtSrasoID</span> <span class="ow">As</span> <span class="kt">String</span>
+    
+    <span class="c">&#39;Autorius: ArtuCer</span>
+    <span class="c">&#39;Modifikavimo data: 2015-05-07</span>
+    
+    <span class="c">&#39;Patikriname ar einamaisiais metais jau yra sukurtas sąrašas</span>
+    <span class="k">Set</span> <span class="n">rst1</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT count(*) As Kiekis &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;FROM PRSK &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;WHERE year(SarasoData)=year(Date())&quot;</span><span class="p">)</span>
+    <span class="k">If</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;Kiekis&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">Then</span>
+        <span class="n">MsgBox</span> <span class="n">Year</span><span class="p">(</span><span class="kt">Date</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot; metų šaukimo sąrašai jau yra registruoti!&quot;</span> <span class="o">&amp;</span> <span class="n">vbLf</span> <span class="o">&amp;</span> <span class="s">&quot;Sąrašų generavimo procedūra nutraukiama.&quot;</span><span class="p">,</span> _
+            <span class="n">vbInformation</span><span class="p">,</span> <span class="s">&quot;Informacija&quot;</span>
+        <span class="k">Exit</span> <span class="k">Sub</span>
+    <span class="nf">End</span> <span class="k">If</span>
+    
+    <span class="k">Set</span> <span class="n">qDef1</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">QueryDefs</span><span class="p">(</span><span class="s">&quot;qryfrm23_0&quot;</span><span class="p">)</span>
+    <span class="k">Set</span> <span class="n">qDef2</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">QueryDefs</span><span class="p">(</span><span class="s">&quot;qryfrm23_0_exec&quot;</span><span class="p">)</span>
+    
+    <span class="c">&#39;surandame regionų kiekį</span>
+    <span class="n">qDef1</span><span class="p">.</span><span class="n">SQL</span> <span class="o">=</span> <span class="s">&quot;SELECT count(*) As Kiekis &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;FROM PerVIS.kdch_reg&quot;</span>
+    <span class="k">Set</span> <span class="n">rst1</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT * FROM qryfrm23_0&quot;</span><span class="p">)</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Max</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;Kiekis&quot;</span><span class="p">)</span>
+    
+    <span class="c">&#39;surandame naujo sąrašo ID</span>
+    <span class="k">Set</span> <span class="n">rst1</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT SarasoID &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;FROM PRSK &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;WHERE SarasoID Like &#39;A%&#39; &quot;</span> <span class="o">&amp;</span> _
+            <span class="s">&quot;AND Len(SarasoID)=3 &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;ORDER BY SarasoData DESC&quot;</span><span class="p">)</span>
+    <span class="k">If</span> <span class="k">Not</span> <span class="n">rst1</span><span class="p">.</span><span class="n">EOF</span> <span class="k">Then</span>
+        <span class="n">txtSrasoID</span> <span class="o">=</span> <span class="s">&quot;A&quot;</span> <span class="o">&amp;</span> <span class="n">Format</span><span class="p">(</span><span class="k">CInt</span><span class="p">(</span><span class="n">Mid</span><span class="p">(</span><span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SarasoID&quot;</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;00&quot;</span><span class="p">)</span>
+    <span class="k">Else</span>
+        <span class="n">txtSrasoID</span> <span class="o">=</span> <span class="s">&quot;A01&quot;</span>
+    <span class="k">End</span> <span class="k">If</span>
+    
+    
+    <span class="c">&#39;Sąrašų generavimo inicijavimas</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">txtProgress</span> <span class="o">=</span> <span class="s">&quot;Sąrašų generavimo inicijavimas&quot;</span>
+    <span class="n">DoEvents</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">Repaint</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">True</span>
+    
+    <span class="n">qDef2</span><span class="p">.</span><span class="n">SQL</span> <span class="o">=</span> <span class="s">&quot;BEGIN PerVIS.SAUKIMO_SARASAS.Nauju_Sarasu_Inicijavimas(&#39;&quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="s">&quot;&#39;); END;&quot;</span>
+    <span class="n">qDef2</span><span class="p">.</span><span class="n">Execute</span>
+        
+    <span class="k">Set</span> <span class="n">rst2</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT count(*) As Kiekis &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;FROM PRSK &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;WHERE SarasoID Like &#39;&quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="s">&quot;*&#39;&quot;</span><span class="p">)</span>
+    <span class="k">If</span> <span class="n">rst2</span><span class="p">(</span><span class="s">&quot;Kiekis&quot;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">Then</span>
+        <span class="n">MsgBox</span> <span class="s">&quot;Klaida &quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="s">&quot;* sarašų generavimo inicijavime. Procedūra nutraukiama.&quot;</span><span class="p">,</span> <span class="n">vbCritical</span><span class="p">,</span> <span class="s">&quot;Klaida&quot;</span>
+        <span class="k">Exit</span> <span class="k">Sub</span>
+    <span class="nf">End</span> <span class="k">If</span>
+
+
+    <span class="c">&#39;Generuojamas Axx sąrašas</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">txtProgress</span> <span class="o">=</span> <span class="s">&quot;Generuojamas &quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="s">&quot; sąrašas&quot;</span>
+    <span class="n">DoEvents</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">Repaint</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">True</span>
+    
+    <span class="n">qDef2</span><span class="p">.</span><span class="n">SQL</span> <span class="o">=</span> <span class="s">&quot;BEGIN PerVIS.SAUKIMO_SARASAS.Naujas_Sarasas_A(&#39;&quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="s">&quot;&#39;); END;&quot;</span>
+    <span class="n">qDef2</span><span class="p">.</span><span class="n">Execute</span>
+        
+    <span class="k">Set</span> <span class="n">rst2</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT count(*) As Kiekis &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;FROM PRS_A &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;WHERE SarasoID=&#39;&quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="s">&quot;&#39;&quot;</span><span class="p">)</span>
+    <span class="k">If</span> <span class="n">rst2</span><span class="p">(</span><span class="s">&quot;Kiekis&quot;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">Then</span>
+        <span class="n">MsgBox</span> <span class="s">&quot;Klaida generuojant &quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="s">&quot; sąrašą. Procedūra nutraukiama.&quot;</span><span class="p">,</span> <span class="n">vbCritical</span><span class="p">,</span> <span class="s">&quot;Klaida&quot;</span>
+        <span class="k">Exit</span> <span class="k">Sub</span>
+    <span class="nf">End</span> <span class="k">If</span>
+
+
+    <span class="c">&#39;Generuojamas Axxyy sąrašas</span>
+    <span class="n">qDef1</span><span class="p">.</span><span class="n">SQL</span> <span class="o">=</span> <span class="s">&quot;SELECT RegionoKodas, SkyriausOrgNo, PoskyrioOrgNo &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;FROM PerVIS.kdch_reg &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;ORDER BY 1&quot;</span>
+    <span class="k">Set</span> <span class="n">rst1</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT * FROM qryfrm23_0&quot;</span><span class="p">)</span>
+    <span class="k">Do</span> <span class="k">While</span> <span class="k">Not</span> <span class="n">rst1</span><span class="p">.</span><span class="n">EOF</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">txtProgress</span> <span class="o">=</span> <span class="s">&quot;Generuojamas &quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;RegionoKodas&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot; sąrašas&quot;</span>
+        <span class="n">DoEvents</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">Repaint</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">True</span>
+
+        <span class="n">qDef2</span><span class="p">.</span><span class="n">SQL</span> <span class="o">=</span> <span class="s">&quot;BEGIN PerVIS.SAUKIMO_SARASAS.Naujas_Sarasas_B(&#39;&quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="s">&quot;&#39;, &#39;&quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;RegionoKodas&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot;&#39;, &quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SkyriausOrgNo&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot;, &quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;PoskyrioOrgNo&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot;); END;&quot;</span>
+        <span class="n">qDef2</span><span class="p">.</span><span class="n">Execute</span>
+            
+        <span class="k">Set</span> <span class="n">rst2</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT count(*) As Kiekis &quot;</span> <span class="o">&amp;</span> _
+            <span class="s">&quot;FROM PRS_B &quot;</span> <span class="o">&amp;</span> _
+            <span class="s">&quot;WHERE SarasoID=&#39;&quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;RegionoKodas&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot;&#39;&quot;</span><span class="p">)</span>
+        <span class="k">If</span> <span class="n">rst2</span><span class="p">(</span><span class="s">&quot;Kiekis&quot;</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">Then</span>
+            <span class="n">MsgBox</span> <span class="s">&quot;Klaida generuojant &quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;RegionoKodas&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot; sąrašą. Procedūra nutraukiama.&quot;</span><span class="p">,</span> <span class="n">vbCritical</span><span class="p">,</span> <span class="s">&quot;Klaida&quot;</span>
+            <span class="k">Exit</span> <span class="k">Sub</span>
+        <span class="nf">End</span> <span class="k">If</span>
+
+        <span class="n">rst1</span><span class="p">.</span><span class="n">MoveNext</span>
+    <span class="k">Loop</span> <span class="c">&#39;rst1</span>
+    
+
+    <span class="c">&#39;Išsaugoma sarašų kontrolinės sumos</span>
+    <span class="n">qDef1</span><span class="p">.</span><span class="n">SQL</span> <span class="o">=</span> <span class="s">&quot;SELECT SarasoID &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;FROM PRSK &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;WHERE SarasoID Like &#39;&quot;</span> <span class="o">&amp;</span> <span class="n">txtSrasoID</span> <span class="o">&amp;</span> <span class="s">&quot;%&#39; &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;ORDER BY SarasoID&quot;</span>
+    <span class="k">Set</span> <span class="n">rst1</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT * FROM qryfrm23_0&quot;</span><span class="p">)</span>
+    <span class="k">Do</span> <span class="k">While</span> <span class="k">Not</span> <span class="n">rst1</span><span class="p">.</span><span class="n">EOF</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">txtProgress</span> <span class="o">=</span> <span class="s">&quot;Išsaugoma sarašo &quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SarasoID&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot; kontrolinė suma&quot;</span>
+        <span class="n">DoEvents</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">Repaint</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">True</span>
+
+        <span class="n">qDef2</span><span class="p">.</span><span class="n">SQL</span> <span class="o">=</span> <span class="s">&quot;BEGIN PerVIS.SAUKIMO_SARASAS.Issaugoma_Kontroline_Suma(&#39;&quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SarasoID&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot;&#39;); END;&quot;</span>
+        <span class="n">qDef2</span><span class="p">.</span><span class="n">Execute</span>
+            
+        <span class="k">Set</span> <span class="n">rst2</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT count(*) As Kiekis &quot;</span> <span class="o">&amp;</span> _
+            <span class="s">&quot;FROM PRSK &quot;</span> <span class="o">&amp;</span> _
+            <span class="s">&quot;WHERE SarasoID=&#39;&quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SarasoID&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot;&#39; &quot;</span> <span class="o">&amp;</span> _
+                <span class="s">&quot;AND KontrolineSuma=&#39;0&#39;&quot;</span><span class="p">)</span>
+        <span class="k">If</span> <span class="n">rst2</span><span class="p">(</span><span class="s">&quot;Kiekis&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">Then</span>
+            <span class="n">MsgBox</span> <span class="s">&quot;Klaida išsaugant &quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SarasoID&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot; sąrašo kontrolinę sumą. Procedūra nutraukiama.&quot;</span><span class="p">,</span> <span class="n">vbCritical</span><span class="p">,</span> <span class="s">&quot;Klaida&quot;</span>
+            <span class="k">Exit</span> <span class="k">Sub</span>
+        <span class="nf">End</span> <span class="k">If</span>
+
+        <span class="n">rst1</span><span class="p">.</span><span class="n">MoveNext</span>
+    <span class="k">Loop</span> <span class="c">&#39;rst1</span>
+    
+
+    <span class="c">&#39;sarašų generavimo užbaigimas</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">txtProgress</span> <span class="o">=</span> <span class="s">&quot;Sąrašų generavimo užbaigimas&quot;</span>
+    <span class="n">DoEvents</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">Repaint</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">True</span>
+    
+    <span class="n">qDef2</span><span class="p">.</span><span class="n">SQL</span> <span class="o">=</span> <span class="s">&quot;BEGIN PerVIS.SAUKIMO_SARASAS.Nauju_Sarasu_Uzbaigimas; END;&quot;</span>
+    <span class="n">qDef2</span><span class="p">.</span><span class="n">Execute</span>
+        
+    <span class="c">&#39;Clear ProgressBar</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">txtProgress</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">True</span>
+    
+    <span class="n">Forms!frm23_0!ufrm23_0_A</span><span class="p">.</span><span class="n">Requery</span>
+    
+    <span class="n">MsgBox</span> <span class="s">&quot;Sąrašų generavimo procedūra užbaigta sėkmingai.&quot;</span><span class="p">,</span> <span class="n">vbInformation</span><span class="p">,</span> <span class="s">&quot;Informacija&quot;</span>
+
+<span class="n">ExitHere</span><span class="p">:</span>
+    <span class="k">Exit</span> <span class="k">Sub</span>
+
+<span class="nf">HandleErr</span><span class="p">:</span>
+    <span class="k">Select</span> <span class="k">Case</span> <span class="n">Err</span><span class="p">.</span><span class="n">Number</span>
+        <span class="k">Case</span> <span class="k">Else</span>
+            <span class="n">MsgBox</span> <span class="s">&quot;Error &quot;</span> <span class="o">&amp;</span> <span class="n">Err</span><span class="p">.</span><span class="n">Number</span> <span class="o">&amp;</span> <span class="s">&quot;: &quot;</span> <span class="o">&amp;</span> <span class="n">Err</span><span class="p">.</span><span class="n">Description</span><span class="p">,</span> <span class="n">vbCritical</span><span class="p">,</span> <span class="s">&quot;frm23_0.pbNaujas_Sarasas_Click&quot;</span>
+    <span class="k">End</span> <span class="k">Select</span>
+<span class="k">End</span> <span class="k">Sub</span>
+
+<span class="k">Private</span> <span class="k">Sub</span> <span class="nf">pbQuit_Click</span><span class="p">()</span>
+<span class="k">On</span> <span class="k">Error</span> <span class="k">GoTo</span> <span class="n">HandleErr</span>
+    
+    <span class="n">DoCmd</span><span class="p">.</span><span class="n">Close</span> <span class="n">acForm</span><span class="p">,</span> <span class="s">&quot;frm23_0&quot;</span>
+
+<span class="n">ExitHere</span><span class="p">:</span>
+    <span class="k">Exit</span> <span class="k">Sub</span>
+
+<span class="nf">HandleErr</span><span class="p">:</span>
+    <span class="k">Select</span> <span class="k">Case</span> <span class="n">Err</span><span class="p">.</span><span class="n">Number</span>
+        <span class="k">Case</span> <span class="k">Else</span>
+            <span class="n">MsgBox</span> <span class="s">&quot;Error &quot;</span> <span class="o">&amp;</span> <span class="n">Err</span><span class="p">.</span><span class="n">Number</span> <span class="o">&amp;</span> <span class="s">&quot;: &quot;</span> <span class="o">&amp;</span> <span class="n">Err</span><span class="p">.</span><span class="n">Description</span><span class="p">,</span> <span class="n">vbCritical</span><span class="p">,</span> <span class="s">&quot;frm23_0.pbQuit_Click&quot;</span>
+    <span class="k">End</span> <span class="k">Select</span>
+<span class="k">End</span> <span class="k">Sub</span>
+
+<span class="k">Private</span> <span class="k">Sub</span> <span class="nf">pbTikrinti_Click</span><span class="p">()</span>
+<span class="k">On</span> <span class="k">Error</span> <span class="k">GoTo</span> <span class="n">HandleErr</span>
+<span class="k">On</span> <span class="k">Error</span> <span class="k">GoTo</span> <span class="n">HandleErr</span>
+    <span class="k">Dim</span> <span class="n">qDef1</span> <span class="ow">As</span> <span class="n">QueryDef</span>
+    <span class="k">Dim</span> <span class="n">rst1</span> <span class="ow">As</span> <span class="n">DAO</span><span class="p">.</span><span class="n">Recordset</span>
+    <span class="k">Dim</span> <span class="n">rst2</span> <span class="ow">As</span> <span class="n">DAO</span><span class="p">.</span><span class="n">Recordset</span>
+    <span class="k">Dim</span> <span class="n">txtRezultatas</span> <span class="ow">As</span> <span class="kt">String</span>
+    <span class="k">Dim</span> <span class="n">strData</span> <span class="ow">As</span> <span class="kt">Date</span>
+
+    <span class="c">&#39;Autorius: ArtuCer</span>
+    <span class="c">&#39;Modifikavimo data: 2015-05-07</span>
+
+    <span class="k">Set</span> <span class="n">qDef1</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">QueryDefs</span><span class="p">(</span><span class="s">&quot;qryfrm23_0&quot;</span><span class="p">)</span>
+    
+    <span class="c">&#39;surandame regionų kiekį</span>
+    <span class="k">Set</span> <span class="n">rst1</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT Count(*) AS Kiekis &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;FROM PRSK &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;WHERE SarasoID Like &#39;&quot;</span> <span class="o">&amp;</span> <span class="o">[</span><span class="n">Forms</span><span class="o">]</span><span class="p">!</span><span class="o">[</span><span class="n">frm23_0</span><span class="o">]</span><span class="p">!</span><span class="o">[</span><span class="n">ufrm23_0_A</span><span class="o">]</span><span class="p">.</span><span class="o">[</span><span class="n">Form</span><span class="o">]</span><span class="p">!</span><span class="o">[</span><span class="n">SARASOID</span><span class="o">]</span> <span class="o">&amp;</span> <span class="s">&quot;*&#39;&quot;</span><span class="p">)</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Max</span> <span class="o">=</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;Kiekis&quot;</span><span class="p">)</span>
+    
+    <span class="n">txtRezultatas</span> <span class="o">=</span> <span class="s">&quot;Sarašo ID&quot;</span> <span class="o">&amp;</span> <span class="n">vbTab</span> <span class="o">&amp;</span> <span class="n">Right</span><span class="p">(</span><span class="s">&quot;                     &quot;</span> <span class="o">&amp;</span> <span class="s">&quot;Kontrolinė suma&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">vbTab</span> <span class="o">&amp;</span> <span class="n">vbTab</span> <span class="o">&amp;</span> <span class="s">&quot;Trukmė&quot;</span> <span class="o">&amp;</span> <span class="n">vbLf</span>
+    
+    <span class="c">&#39;surandame sąrašo ID</span>
+    <span class="k">Set</span> <span class="n">rst1</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT SarasoID &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;FROM PRSK &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;WHERE SarasoID Like &#39;&quot;</span> <span class="o">&amp;</span> <span class="o">[</span><span class="n">Forms</span><span class="o">]</span><span class="p">!</span><span class="o">[</span><span class="n">frm23_0</span><span class="o">]</span><span class="p">!</span><span class="o">[</span><span class="n">ufrm23_0_A</span><span class="o">]</span><span class="p">.</span><span class="o">[</span><span class="n">Form</span><span class="o">]</span><span class="p">!</span><span class="o">[</span><span class="n">SARASOID</span><span class="o">]</span> <span class="o">&amp;</span> <span class="s">&quot;*&#39; &quot;</span> <span class="o">&amp;</span> _
+        <span class="s">&quot;ORDER BY SarasoID&quot;</span><span class="p">)</span>
+    <span class="k">Do</span> <span class="k">While</span> <span class="k">Not</span> <span class="n">rst1</span><span class="p">.</span><span class="n">EOF</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">txtProgress</span> <span class="o">=</span> <span class="s">&quot;Skaičiuojama &quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SarasoID&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot; kontrolinė suma&quot;</span>
+        <span class="n">DoEvents</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">Repaint</span>
+        <span class="k">Me</span><span class="p">.</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">True</span>
+    
+        <span class="n">strData</span> <span class="o">=</span> <span class="n">Now</span><span class="p">()</span>
+        <span class="n">qDef1</span><span class="p">.</span><span class="n">SQL</span> <span class="o">=</span> <span class="s">&quot;SELECT PerVIS.SAUKIMO_SARASAS.Saraso_Kontroline_Suma(&#39;&quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SarasoID&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot;&#39;) As Kontroline_Suma &quot;</span> <span class="o">&amp;</span> _
+            <span class="s">&quot;FROM dual&quot;</span>
+        <span class="k">Set</span> <span class="n">rst2</span> <span class="o">=</span> <span class="n">CurrentDb</span><span class="p">.</span><span class="n">OpenRecordset</span><span class="p">(</span><span class="s">&quot;SELECT Kontroline_Suma FROM qryfrm23_0&quot;</span><span class="p">)</span>
+    
+        <span class="k">If</span> <span class="k">Not</span> <span class="n">rst2</span><span class="p">.</span><span class="n">EOF</span> <span class="k">Then</span>
+            <span class="n">txtRezultatas</span> <span class="o">=</span> <span class="n">txtRezultatas</span> <span class="o">&amp;</span> _
+                <span class="n">Right</span><span class="p">(</span><span class="s">&quot;    &quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SarasoID&quot;</span><span class="p">),</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">vbTab</span> <span class="o">&amp;</span> <span class="n">Right</span><span class="p">(</span><span class="s">&quot;                     &quot;</span> <span class="o">&amp;</span> <span class="n">rst2</span><span class="p">(</span><span class="s">&quot;Kontroline_Suma&quot;</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">vbTab</span> <span class="o">&amp;</span> <span class="n">vbTab</span> <span class="o">&amp;</span> <span class="s">&quot;  &quot;</span> <span class="o">&amp;</span> <span class="n">Format</span><span class="p">(</span><span class="n">Now</span><span class="p">()</span> <span class="o">-</span> <span class="n">strData</span><span class="p">,</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">Format</span><span class="p">(</span><span class="n">Now</span><span class="p">()</span> <span class="o">-</span> <span class="n">strData</span><span class="p">,</span> <span class="s">&quot;s&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot; sek.&quot;</span> <span class="o">&amp;</span> <span class="n">vbLf</span>
+        <span class="k">Else</span>
+            <span class="n">txtRezultatas</span> <span class="o">=</span> <span class="n">txtRezultatas</span> <span class="o">&amp;</span> _
+                <span class="n">Right</span><span class="p">(</span><span class="s">&quot;    &quot;</span> <span class="o">&amp;</span> <span class="n">rst1</span><span class="p">(</span><span class="s">&quot;SarasoID&quot;</span><span class="p">),</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">vbTab</span> <span class="o">&amp;</span> <span class="n">Right</span><span class="p">(</span><span class="s">&quot;                     &quot;</span> <span class="o">&amp;</span> <span class="s">&quot;Klaida!&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">vbTab</span> <span class="o">&amp;</span> <span class="n">vbTab</span> <span class="o">&amp;</span> <span class="s">&quot;  &quot;</span> <span class="o">&amp;</span> <span class="n">Format</span><span class="p">(</span><span class="n">Now</span><span class="p">()</span> <span class="o">-</span> <span class="n">strData</span><span class="p">,</span> <span class="s">&quot;n&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="mi">60</span> <span class="o">+</span> <span class="n">Format</span><span class="p">(</span><span class="n">Now</span><span class="p">()</span> <span class="o">-</span> <span class="n">strData</span><span class="p">,</span> <span class="s">&quot;s&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot; sek.&quot;</span> <span class="o">&amp;</span> <span class="n">vbLf</span>
+        <span class="k">End</span> <span class="k">If</span>
+    
+        <span class="n">rst1</span><span class="p">.</span><span class="n">MoveNext</span>
+    <span class="k">Loop</span> <span class="c">&#39;rst1</span>
+    
+    <span class="c">&#39;Clear ProgressBar</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">prbProgressBar</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">txtProgress</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="k">Me</span><span class="p">.</span><span class="n">Visible</span> <span class="o">=</span> <span class="k">True</span>
+    
+    <span class="n">MsgBox</span> <span class="n">txtRezultatas</span><span class="p">,</span> <span class="n">vbInformation</span><span class="p">,</span> <span class="s">&quot;Informacija&quot;</span>
+
+<span class="n">ExitHere</span><span class="p">:</span>
+    <span class="k">Exit</span> <span class="k">Sub</span>
+
+<span class="nf">HandleErr</span><span class="p">:</span>
+    <span class="k">Select</span> <span class="k">Case</span> <span class="n">Err</span><span class="p">.</span><span class="n">Number</span>
+        <span class="k">Case</span> <span class="mi">2427</span>
+        <span class="k">Case</span> <span class="k">Else</span>
+            <span class="n">MsgBox</span> <span class="s">&quot;Error &quot;</span> <span class="o">&amp;</span> <span class="n">Err</span><span class="p">.</span><span class="n">Number</span> <span class="o">&amp;</span> <span class="s">&quot;: &quot;</span> <span class="o">&amp;</span> <span class="n">Err</span><span class="p">.</span><span class="n">Description</span><span class="p">,</span> <span class="n">vbCritical</span><span class="p">,</span> <span class="s">&quot;frm23_0.pbTikrinti_Click&quot;</span>
+    <span class="k">End</span> <span class="k">Select</span>
+<span class="k">End</span> <span class="k">Sub</span>
+</pre></div>
+</td></tr></table></body>
+</html>
